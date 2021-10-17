@@ -5,6 +5,8 @@ import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import ru.agk13145.projects.htmlpageanalyzer.dao.PageDao;
+import ru.agk13145.projects.htmlpageanalyzer.model.Page;
 import ru.agk13145.projects.htmlpageanalyzer.model.Statistic;
 import ru.agk13145.projects.htmlpageanalyzer.service.StatisticService;
 import ru.agk13145.projects.htmlpageanalyzer.util.Util;
@@ -18,15 +20,25 @@ public class StatisticServiceImpl implements StatisticService {
 
     private static Logger logger = LoggerFactory.getLogger(StatisticServiceImpl.class);
 
+    private final PageDao pageDao;
+
+    public StatisticServiceImpl(PageDao pageDao) {
+        this.pageDao = pageDao;
+    }
 
     @Override
     public Statistic analyzePage(String url) {
         Statistic statistic = new Statistic();
-        String text = parseHTML(url);
-        if (text != null) {
-            Map<String, Integer> mapOfUniqueWords = getUniqueWords(text);
-            statistic.setMapOfUniqueWords(mapOfUniqueWords);
+
+        Page page = pageDao.getPageByUrl(url);
+        if (page == null) {
+            String text = parseHTML(url);
+            if (text != null) {
+                Map<String, Integer> mapOfUniqueWords = getUniqueWords(text);
+                statistic.setStatOfUniqueWords(mapOfUniqueWords);
+            }
         }
+
         //todo need add constraints
         return statistic;
     }

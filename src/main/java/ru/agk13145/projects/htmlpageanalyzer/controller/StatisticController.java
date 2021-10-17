@@ -37,7 +37,7 @@ public class StatisticController {
     @ResponseBody
     public ResponseEntity<Statistic> analyzePage(@RequestBody Page page) {
         logger.debug("get statistic by url as POST parameter");
-        Statistic statistic = statisticService.analyzePage(page.getLink());
+        Statistic statistic = statisticService.analyzePage(page.getUrl());
         return new ResponseEntity<>(statistic, HttpStatus.OK);
     }
 

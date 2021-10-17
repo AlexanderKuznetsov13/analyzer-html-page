@@ -4,13 +4,13 @@ import java.util.Map;
 
 public class Statistic {
 
-    private Map<String, Integer> mapOfUniqueWords;
+    private Map<String, Integer> statOfUniqueWords;
 
-    public Map<String, Integer> getMapOfUniqueWords() {
-        return mapOfUniqueWords;
+    public Map<String, Integer> getStatOfUniqueWords() {
+        return statOfUniqueWords;
     }
 
-    public void setMapOfUniqueWords(Map<String, Integer> mapOfUniqueWords) {
-        this.mapOfUniqueWords = mapOfUniqueWords;
+    public void setStatOfUniqueWords(Map<String, Integer> statOfUniqueWords) {
+        this.statOfUniqueWords = statOfUniqueWords;
     }
 }

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="202104162000_add_functions_dbu_foreign_key_exists" author="alexander.kuznetsov" dbms="postgresql">
+        <sql splitStatements="false">
+            <![CDATA[
+            CREATE OR REPLACE FUNCTION dbu_foreign_key_exists(constraintname character varying, tablename character varying, schemaname character varying)
+                RETURNS boolean
+                LANGUAGE plpgsql
+            AS $_$
+            declare result boolean;
+            begin
+                select count(*) > 0 into result
+                from pg_constraint
+                         inner join pg_class on pg_constraint.conrelid  = pg_class.oid
+                         inner join pg_namespace on pg_constraint.connamespace = pg_namespace.oid
+                where pg_constraint.contype = 'f'
+                  and pg_constraint.conname = lower($1)
+                  and pg_class.relname = lower($2)
+                  and pg_namespace.nspname = lower($3);
+                return result;
+            end;
+            $_$;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="201801181000_add_functions_dbu_primary_key_exists" author="alexander.kuznetsov" dbms="postgresql">
+        <sql splitStatements="false">
+            <![CDATA[
+            CREATE OR REPLACE FUNCTION dbu_primary_key_exists(pkname character varying, tablename character varying, schemaname character varying)
+                RETURNS boolean
+                LANGUAGE plpgsql
+            AS $_$
+            declare result boolean;
+            begin
+                select count(*) > 0 into result
+                from pg_constraint
+                         inner join pg_class table_owner on pg_constraint.conrelid = table_owner.oid
+                         inner join pg_namespace on pg_constraint.connamespace = pg_namespace.oid
+                where pg_constraint.contype = 'p'
+                  and pg_constraint.conname = lower($1)
+                  and table_owner.relname = lower($2)
+                  and pg_namespace.nspname = lower($3);
+                return result;
+            end;
+            $_$;
+            ]]>
+        </sql>
+    </changeSet>
+    <changeSet id="201801181000_add_functions_dbu_sequence_exists" author="alexander.kuznetsov" dbms="postgresql">
+        <sql splitStatements="false">
+            <![CDATA[
+            CREATE OR REPLACE FUNCTION dbu_sequence_exists(sequencename character varying, schemaname character varying)
+                RETURNS boolean
+                LANGUAGE plpgsql
+            AS $_$
+            declare result boolean;
+            begin
+                select count(*) > 0 into result
+                from pg_class
+                         inner join pg_namespace on pg_class.relnamespace = pg_namespace.oid
+                where pg_class.relkind = 'S'
+                  and pg_class.relname = lower($1)
+                  and pg_namespace.nspname = lower($2);
+                return result;
+            end;
+            $_$;
+            ]]>
+        </sql>
+    </changeSet>
+
+    <changeSet id="201801181000_add_functions_dbu_index_exists_by_name" author="alexander.kuznetsov" dbms="postgresql">
+        <sql splitStatements="false">
+            <![CDATA[
+            CREATE OR REPLACE FUNCTION dbu_index_exists_by_name(indexname character varying, tablename character varying, schemaname character varying)
+                RETURNS boolean
+                LANGUAGE plpgsql
+            AS $_$
+            declare result boolean;
+            begin
+                select count(*) > 0 into result
+                from pg_class
+                         inner join pg_index on pg_class.oid = pg_index.indexrelid
+                         inner join pg_class table_owner on pg_index.indrelid = table_owner.oid
+                         inner join pg_namespace on pg_class.relnamespace = pg_namespace.oid
+                where pg_class.relkind = 'i'
+                  and pg_class.relname = lower($1)
+                  and table_owner.relname = lower($2)
+                  and pg_namespace.nspname = lower($3);
+                return result;
+            end;
+            $_$;
+            ]]>
+        </sql>
+    </changeSet>
+</databaseChangeLog>

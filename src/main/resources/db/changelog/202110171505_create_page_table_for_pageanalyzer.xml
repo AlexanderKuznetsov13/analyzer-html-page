@@ -1,0 +1,42 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
+   http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.10.xsd">
+
+    <changeSet id="create_sequence_pages_seq" author="alexander.kuznetsov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="f">
+                select dbu_sequence_exists('pages_seq', 'pageanalyzer')
+            </sqlCheck>
+        </preConditions>
+        <sql>
+            CREATE SEQUENCE pageanalyzer.pages_seq;
+        </sql>
+    </changeSet>
+
+    <changeSet id="create_table_pages_for_pageanalyzer" author="alexander.kuznetsov" dbms="postgresql">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="pages" schemaName="pageanalyzer"/>
+            </not>
+            <sqlCheck expectedResult="t">select dbu_sequence_exists('pages_seq', 'pageanalyzer')</sqlCheck>
+        </preConditions>
+        <sql>
+            CREATE TABLE pageanalyzer.pages (
+                                                      id              INTEGER NOT NULL DEFAULT nextval('pageanalyzer.pages_seq'),
+                                                      url             VARCHAR(100)    NOT NULL,
+
+                                                      CONSTRAINT languages_id_pk PRIMARY KEY (id)
+            );
+
+            COMMENT ON TABLE pageanalyzer.pages IS 'List of pages';
+            COMMENT ON COLUMN pageanalyzer.pages.id IS 'ID';
+            COMMENT ON COLUMN pageanalyzer.pages.url IS 'URL of page';
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,14 +1,22 @@
 package ru.agk13145.projects.htmlpageanalyzer.model;
 
 public class Page {
+    private Integer id;
+    private String url;
 
-    private String link;
-
-    public String getLink() {
-        return link;
+    public Integer getId() {
+        return id;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }
