@@ -30,7 +30,7 @@ public class PageDaoImpl implements PageDao {
             "WHERE url = :url";
 
     private final static String SQL_CREATE_PAGE = "INSERT INTO " +
-            "pageanalyzer.pages(url) VALUES (:url)";
+            "pageanalyzer.pages(url, statistic) VALUES (:url, to_json(:statistic))";
 
     private final static String SQL_UPDATE_PAGE = "UPDATE pageanalyzer.pages " +
             "SET url = :url WHERE id = :id";
@@ -70,6 +70,7 @@ public class PageDaoImpl implements PageDao {
         GeneratedKeyHolder generatedKeyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource namedParameters = new MapSqlParameterSource();
         namedParameters.addValue("url", page.getUrl());
+        namedParameters.addValue("statistic", page.getStatisticJSON());
         namedParameterJdbcTemplate.update(SQL_CREATE_PAGE, namedParameters, generatedKeyHolder);
         return (Integer) generatedKeyHolder.getKeys().get("id");
     }

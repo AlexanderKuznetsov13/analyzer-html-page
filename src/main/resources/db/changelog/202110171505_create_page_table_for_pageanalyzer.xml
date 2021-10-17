@@ -28,14 +28,15 @@
         <sql>
             CREATE TABLE pageanalyzer.pages (
                                                       id              INTEGER NOT NULL DEFAULT nextval('pageanalyzer.pages_seq'),
-                                                      url             VARCHAR(100)    NOT NULL,
-
-                                                      CONSTRAINT languages_id_pk PRIMARY KEY (id)
+                                                      url             VARCHAR(1000)    NOT NULL,
+                                                      statistic       JSON,
+                                                      CONSTRAINT pages_id_pk PRIMARY KEY (id)
             );
 
             COMMENT ON TABLE pageanalyzer.pages IS 'List of pages';
             COMMENT ON COLUMN pageanalyzer.pages.id IS 'ID';
             COMMENT ON COLUMN pageanalyzer.pages.url IS 'URL of page';
+            COMMENT ON COLUMN pageanalyzer.pages.statistic IS 'statistic of page';
         </sql>
     </changeSet>
 

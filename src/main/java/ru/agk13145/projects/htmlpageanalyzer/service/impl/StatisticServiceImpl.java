@@ -1,5 +1,6 @@
 package ru.agk13145.projects.htmlpageanalyzer.service.impl;
 
+import com.google.gson.Gson;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
@@ -36,6 +37,11 @@ public class StatisticServiceImpl implements StatisticService {
             if (text != null) {
                 Map<String, Integer> mapOfUniqueWords = getUniqueWords(text);
                 statistic.setStatOfUniqueWords(mapOfUniqueWords);
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(statistic);
+                page = new Page(url, jsonString);
+                Integer pageId = pageDao.createPage(page);
+                logger.debug("Page is saved into DB");
             }
         }
 

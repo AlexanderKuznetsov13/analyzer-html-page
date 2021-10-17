@@ -10,11 +10,10 @@ public class PageMapper implements RowMapper<Page> {
 
     @Override
     public Page mapRow(ResultSet resultSet, int i) throws SQLException {
-        Page page = null;
-        if (resultSet.next()) {
-            page.setId(resultSet.getInt("ID"));
-            page.setUrl(resultSet.getString("URL"));
-        }
+        Page page = new Page();
+        page.setId(resultSet.getInt("ID"));
+        page.setUrl(resultSet.getString("URL"));
+//        page.setStatisticJSON(resultSet);
 
         return page;
     }
