@@ -4,6 +4,7 @@ Test project for Simbirsoft company.
 ## Что использовалось 
 - spring boot
 - liquibase (для разворачивания БД)
+- slf4j (логирование)
 - postman (для тестирования)
 - postgresql (храние данные)
 - junit (тесты)

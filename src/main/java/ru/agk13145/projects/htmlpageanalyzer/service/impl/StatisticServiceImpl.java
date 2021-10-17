@@ -47,11 +47,11 @@ public class StatisticServiceImpl implements StatisticService {
 
             }
         } else {
+            logger.debug("Page is retrieved from DB");
             statistic = gson.fromJson(page.getStatisticJSON(), Statistic.class);
         }
         statistic.setPage(page);
 
-        //todo need add constraints
         return statistic;
     }
 
@@ -68,6 +68,7 @@ public class StatisticServiceImpl implements StatisticService {
         List<Page> pages = pageDao.getPages();
         List<Statistic> statistics = new ArrayList<>(pages.size());
         pages.forEach((page) -> {
+            logger.debug("Page is added to list - {}", page.getUrl());
             Statistic statistic = gson.fromJson(page.getStatisticJSON(), Statistic.class);
             statistic.setPage(page);
             statistics.add(statistic);
@@ -93,7 +94,7 @@ public class StatisticServiceImpl implements StatisticService {
         String[] words = Util.splitWords(text);
         Map<String, Integer> counts = Util.countWords(words);
         for (Map.Entry<String, Integer> entry : counts.entrySet()) {
-            logger.trace("{} counts is - {}", entry.getKey(), entry.getValue());
+            logger.trace("{}: {}", entry.getKey(), entry.getValue());
         }
         return counts;
     }
