@@ -68,7 +68,7 @@ public class StatisticServiceImpl implements StatisticService {
         List<Page> pages = pageDao.getPages();
         List<Statistic> statistics = new ArrayList<>(pages.size());
         pages.forEach((page) -> {
-            Statistic statistic = gson.fromJson(page.getStatisticJSON(), Statistic.class);;
+            Statistic statistic = gson.fromJson(page.getStatisticJSON(), Statistic.class);
             statistic.setPage(page);
             statistics.add(statistic);
         });
