@@ -2,7 +2,6 @@ package ru.agk13145.projects.htmlpageanalyzer.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -28,7 +27,7 @@ public class StatisticController {
     @GetMapping("/analyzeByURL")
     @ResponseBody
     public ResponseEntity<Statistic> analyzePageByURLparameter(@RequestParam String url) {
-        logger.debug("get statistic by url as GET parameter - {}", url);
+        logger.debug("Get statistic by url as GET parameter - {}", url);
         Statistic statistic = statisticService.analyzePage(url);
         return new ResponseEntity<>(statistic, HttpStatus.OK);
     }
@@ -36,7 +35,7 @@ public class StatisticController {
     @PostMapping("/analyze")
     @ResponseBody
     public ResponseEntity<Statistic> analyzePage(@RequestBody Page page) {
-        logger.debug("get statistic by url as POST parameter");
+        logger.debug("Get statistic by url as POST parameter");
         Statistic statistic = statisticService.analyzePage(page.getUrl());
         return new ResponseEntity<>(statistic, HttpStatus.OK);
     }

@@ -9,7 +9,6 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import ru.agk13145.projects.htmlpageanalyzer.controller.StatisticController;
 import ru.agk13145.projects.htmlpageanalyzer.dao.PageDao;
 import ru.agk13145.projects.htmlpageanalyzer.model.Page;
 import ru.agk13145.projects.htmlpageanalyzer.model.mapper.PageMapper;
@@ -37,7 +36,7 @@ public class PageDaoImpl implements PageDao {
 
     private final static String SQL_DELETE_PAGE = "DELETE FROM pageanalyzer.pages WHERE id = :id";
 
-    private final static String SQL_SELECT_ALL_PAGES = "SELECT ID, NAME FROM pageanalyzer.pages ORDER BY id ASC";
+    private final static String SQL_SELECT_ALL_PAGES = "SELECT ID, URL, STATISTIC FROM pageanalyzer.pages ORDER BY id ASC";
 
 
     @Autowired

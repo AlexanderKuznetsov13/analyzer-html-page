@@ -22,7 +22,6 @@ public class SpringJDBCConfiguration {
     @Resource
     private Environment env;
 
-
     @Bean
     public DataSource dataSource() {
         DataSourceBuilder dataSourceBuilder = DataSourceBuilder.create();

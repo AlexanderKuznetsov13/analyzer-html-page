@@ -1,8 +1,12 @@
 package ru.agk13145.projects.htmlpageanalyzer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class Page {
     private Integer id;
     private String url;
+
+    @JsonIgnore
     private String statisticJSON;
 
     public Page() {

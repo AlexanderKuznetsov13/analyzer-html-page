@@ -13,6 +13,7 @@ import ru.agk13145.projects.htmlpageanalyzer.service.StatisticService;
 import ru.agk13145.projects.htmlpageanalyzer.util.Util;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ public class StatisticServiceImpl implements StatisticService {
 
     private static Logger logger = LoggerFactory.getLogger(StatisticServiceImpl.class);
 
+    private static Gson gson = new Gson();
     private final PageDao pageDao;
 
     public StatisticServiceImpl(PageDao pageDao) {
@@ -42,10 +44,12 @@ public class StatisticServiceImpl implements StatisticService {
                 page = new Page(url, jsonString);
                 Integer pageId = pageDao.createPage(page);
                 logger.debug("Page is saved into DB");
+
             }
         } else {
-            statistic = new Gson().fromJson(page.getStatisticJSON(), Statistic.class);
+            statistic = gson.fromJson(page.getStatisticJSON(), Statistic.class);
         }
+        statistic.setPage(page);
 
         //todo need add constraints
         return statistic;
@@ -58,7 +62,15 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public List<Statistic> getAllStatistics() {
-        return null;
+        List<Page> pages = pageDao.getPages();
+        List<Statistic> statistics = new ArrayList<>(pages.size());
+        pages.forEach((page) -> {
+            Statistic statistic = gson.fromJson(page.getStatisticJSON(), Statistic.class);;
+            statistic.setPage(page);
+            statistics.add(statistic);
+        });
+
+        return statistics;
     }
 
     private String parseHTML(String url) {
