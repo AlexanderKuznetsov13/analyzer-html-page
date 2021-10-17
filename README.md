@@ -34,3 +34,44 @@ Test project for Simbirsoft company.
 4. Сохранение статистики в базу данных.
 5. Возможность расширяемости проекта и многоуровневую архитектуру
 6. Тесты
+
+
+**Spring Boot веб приложение.**
+
+Перед запуском приложения, нужно создать PosgreSQL БД в PgAdmin: pageanalyzer
+
+После выполнить mvn clean install
+
+Поправить credentials в src/main/resources/liquibase.properties
+default пароль выстален на adminadmin
+
+Запуск приложения как spring-boot 
+
+**mvn spring-boot:run**
+
+
+Приложение принимает полноценный адрес html-страницы, например, https://www.simbirsoft.com/
+
+Возможные запросы:
+http://localhost:8080/statistic/analyzeByURL?url=https://www.simbirsoft.com/
+
+Структура страницы парсится используя библиотеку jsoup, уникальные слова сохраняются в таблице БД
+
+Структура таблицы
+
+```sql
+CREATE TABLE pageanalyzer.pages (
+id              INTEGER NOT NULL DEFAULT nextval('pageanalyzer.pages_seq'),
+url             VARCHAR(1000)    NOT NULL,
+statistic       text,
+CONSTRAINT pages_id_pk PRIMARY KEY (id)
+);
+
+COMMENT ON TABLE pageanalyzer.pages IS 'List of pages';
+COMMENT ON COLUMN pageanalyzer.pages.id IS 'ID';
+COMMENT ON COLUMN pageanalyzer.pages.url IS 'URL of page';
+COMMENT ON COLUMN pageanalyzer.pages.statistic IS 'statistic of page';
+```
+
+Получение всех статистик
+http://localhost:8080/statistic/all

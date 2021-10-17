@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "c01241ea-3fa6-48ee-aa6a-39aa1142c4d3",
+		"name": "Page Analyzer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "analyze SimbirSoftPage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/statistic/analyzeByURL?url=https://www.simbirsoft.com/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistic",
+						"analyzeByURL"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "https://www.simbirsoft.com/"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "analyze My GitHub",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/statistic/analyzeByURL?url=https://github.com/AlexanderKuznetsov13/analyzer-html-page",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistic",
+						"analyzeByURL"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "https://github.com/AlexanderKuznetsov13/analyzer-html-page"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "analyze Mail.Ru",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/statistic/analyzeByURL?url=https://stackoverflow.com/questions/35844138/how-can-i-insert-json-object-into-postgres-using-java-preparedstatement",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistic",
+						"analyzeByURL"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "https://stackoverflow.com/questions/35844138/how-can-i-insert-json-object-into-postgres-using-java-preparedstatement"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "analyze RIA",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/statistic/analyzeByURL?url=https://yandex.ru/search/?text=json+to+object+java+gson+postgresql%26lr=43%26src=suggest_In",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistic",
+						"analyzeByURL"
+					],
+					"query": [
+						{
+							"key": "url",
+							"value": "https://yandex.ru/search/?text=json+to+object+java+gson+postgresql&lr=43&src=suggest_In"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "analyze",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/statistic/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistic",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET ALL Saved Statiscs from DB",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/statistic/all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"statistic",
+						"all"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
