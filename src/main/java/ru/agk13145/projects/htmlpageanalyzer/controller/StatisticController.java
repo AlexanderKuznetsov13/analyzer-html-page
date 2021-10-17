@@ -29,15 +29,15 @@ public class StatisticController {
     @ResponseBody
     public ResponseEntity<Statistic> analyzePageByURLparameter(@RequestParam String url) {
         logger.debug("get statistic by url as GET parameter - {}", url);
-        Statistic statistic = null;
+        Statistic statistic = statisticService.analyzePage(url);
         return new ResponseEntity<>(statistic, HttpStatus.OK);
     }
 
     @PostMapping("/analyze")
     @ResponseBody
-    public ResponseEntity<Statistic> analyzePage(@RequestBody Page pageDto) {
+    public ResponseEntity<Statistic> analyzePage(@RequestBody Page page) {
         logger.debug("get statistic by url as POST parameter");
-        Statistic statistic = statisticService.analyzePage(pageDto);
+        Statistic statistic = statisticService.analyzePage(page.getLink());
         return new ResponseEntity<>(statistic, HttpStatus.OK);
     }
 
