@@ -51,6 +51,7 @@ default пароль выстален на adminadmin
 
 
 Приложение принимает полноценный адрес html-страницы, например, https://www.simbirsoft.com/
+Postman файл приложен к репозиторию
 
 Возможные запросы:
 http://localhost:8080/statistic/analyzeByURL?url=https://www.simbirsoft.com/
