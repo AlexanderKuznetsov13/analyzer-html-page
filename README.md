@@ -1,6 +1,14 @@
 # analyzer-html-page
 Test project for Simbirsoft company. 
 
+## Что использовалось 
+- spring boot
+- liquibase (для разворачивания БД)
+- postman (для тестирования)
+- postgresql (храние данные)
+- junit (тесты)
+- jsoup (парсинг HTML DOM дерева)
+
 
 # Requirements (in Russian):**
 
@@ -36,29 +44,28 @@ Test project for Simbirsoft company.
 6. Тесты
 
 
-**Spring Boot веб приложение.**
+## Инструкция 
 
-Перед запуском приложения, нужно создать PosgreSQL БД в PgAdmin: pageanalyzer
-
-После выполнить mvn clean install
-
-Поправить credentials в src/main/resources/liquibase.properties
-default пароль выстален на adminadmin
-
-Запуск приложения как spring-boot 
-
-**mvn spring-boot:run**
+- Перед запуском приложения, нужно создать PosgreSQL БД в PgAdmin: pageanalyzer
+- После выполнить mvn clean install
+- Поправить credentials в src/main/resources/liquibase.properties (default password: **_adminadmin_**
+- Запуск приложения как spring-boot 
+```
+mvn spring-boot:run
+```
 
 
-Приложение принимает полноценный адрес html-страницы, например, https://www.simbirsoft.com/
+- Приложение принимает полноценный адрес html-страницы, например, https://www.simbirsoft.com/
 Postman файл приложен к репозиторию
 
 Возможные запросы:
+```
 http://localhost:8080/statistic/analyzeByURL?url=https://www.simbirsoft.com/
+```
 
-Структура страницы парсится используя библиотеку jsoup, уникальные слова сохраняются в таблице БД
+Структура страницы парсится используя библиотеку **jsoup**, уникальные слова сохраняются в таблице БД
 
-Структура таблицы
+**Структура таблицы**
 
 ```sql
 CREATE TABLE pageanalyzer.pages (
@@ -74,5 +81,7 @@ COMMENT ON COLUMN pageanalyzer.pages.url IS 'URL of page';
 COMMENT ON COLUMN pageanalyzer.pages.statistic IS 'statistic of page';
 ```
 
-Получение всех статистик
+**Получение всех статистик**
+```
 http://localhost:8080/statistic/all
+```
