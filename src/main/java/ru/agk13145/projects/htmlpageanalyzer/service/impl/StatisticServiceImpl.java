@@ -43,6 +43,8 @@ public class StatisticServiceImpl implements StatisticService {
                 Integer pageId = pageDao.createPage(page);
                 logger.debug("Page is saved into DB");
             }
+        } else {
+            statistic = new Gson().fromJson(page.getStatisticJSON(), Statistic.class);
         }
 
         //todo need add constraints

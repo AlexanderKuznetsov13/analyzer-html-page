@@ -23,14 +23,14 @@ public class PageDaoImpl implements PageDao {
 
     private static Logger logger = LoggerFactory.getLogger(PageDaoImpl.class);
 
-    private final static String SQL_SELECT_PAGE = "SELECT ID, URL FROM pageanalyzer.pages " +
+    private final static String SQL_SELECT_PAGE = "SELECT ID, URL, STATISTIC FROM pageanalyzer.pages " +
             "WHERE id = :id";
 
-    private final static String SQL_SELECT_PAGE_BY_URL = "SELECT ID, URL FROM pageanalyzer.pages " +
+    private final static String SQL_SELECT_PAGE_BY_URL = "SELECT ID, URL, STATISTIC FROM pageanalyzer.pages " +
             "WHERE url = :url";
 
     private final static String SQL_CREATE_PAGE = "INSERT INTO " +
-            "pageanalyzer.pages(url, statistic) VALUES (:url, to_json(:statistic))";
+            "pageanalyzer.pages(url, statistic) VALUES (:url, :statistic)";
 
     private final static String SQL_UPDATE_PAGE = "UPDATE pageanalyzer.pages " +
             "SET url = :url WHERE id = :id";
