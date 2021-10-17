@@ -57,7 +57,10 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public Statistic getStatisticsByPageId(Integer pageId) {
-        return null;
+        Page page = pageDao.getPage(pageId);
+        Statistic statistic = gson.fromJson(page.getStatisticJSON(), Statistic.class);
+        statistic.setPage(page);
+        return statistic;
     }
 
     @Override
