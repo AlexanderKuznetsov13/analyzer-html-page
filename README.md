@@ -1,5 +1,5 @@
 # analyzer-html-page
-Test project for Simbirsoft company. 
+Test project. 
 
 ## Что использовалось 
 - spring boot
